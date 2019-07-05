@@ -30,7 +30,7 @@ SECRET_KEY = '453!mx7@o^!k8#=)s@xr@j=o3=32=y0o-*me=pfvv#lt+8^abp'
 DEBUG = True
 
 #todo 添加后端接口地址
-ALLOWED_HOSTS = ["api.meiduo.com"]
+ALLOWED_HOSTS = ["api.meiduo.com","127.0.0.1"]
 
 
 # Application definition
@@ -177,7 +177,7 @@ LOGGING ={
         'file': {  # 向文件中输出日志
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(os.path.dirname(BASE_DIR), "logs/meiduo.log"),  # 日志文件的位置
+            'filename': os.path.join(os.path.dirname(BASE_DIR), "logs/meiduo.log"),  # 日志文件的位置 '/project/django/meiduo_mall/logs/meiduo.log'
             'maxBytes': 300 * 1024 * 1024,
             'backupCount': 10,
             'formatter': 'verbose'
@@ -224,4 +224,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/static/'
+#todo 静态文件配置
+STATIC_URL = '/static/'  #url路径
+STATICFILES_DIRS = [  #文件路径
+    os.path.join(BASE_DIR, 'front_end'), #'/project/django/meiduo_mall/meiduo_mall/front_end'
+]
