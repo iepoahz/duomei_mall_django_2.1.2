@@ -29,7 +29,8 @@ SECRET_KEY = '453!mx7@o^!k8#=)s@xr@j=o3=32=y0o-*me=pfvv#lt+8^abp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#todo 添加后端接口地址
+ALLOWED_HOSTS = ["api.meiduo.com"]
 
 
 # Application definition
@@ -42,10 +43,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest-framework',#todo 注册rest_framework应用,后期调用API web测试
-]
+    'rest_framework',   #注册rest_framework应用,后期调用API web测试
+    'corsheaders',  #跨域请求第三方库django-cors-headers==2.4.0
+    'users.apps.UsersConfig', #子应用users
 
+
+
+]
+#todo 中间件设置
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',#跨域请求第三方库django-cors-headers==2.4.0
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -135,11 +142,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
-
+#todo 语言
 LANGUAGE_CODE = 'zh-hans'
 
+
+#todo 时区
 TIME_ZONE = 'Asia/Shanghai'
 
+
+#todo 日志配置
 LOGGING ={
     'version':1,
     'disable_existing_loggers':False,
@@ -180,6 +191,28 @@ LOGGING ={
         },
     },
 }
+
+#todo 异常配置
+REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER":"meiduo_mall.utils.exceptions.exception_handler",
+}
+
+
+#todo 添加白名单
+CORS_ORIGIN_WHITELIST = (
+    "127.0.0.1:8080",
+    "localhost:8080",
+    "www.meiduo.com:8080",
+    "www.wurenlingyu.cn:8080",
+    "127.0.0.1:8000",
+    "api.meiduo.com:8000"
+)
+
+#todo 允许携带COOKIE
+CORS_ALLOW_CREDENTIALS = True
+
+#todo django  认证系统使用的模型类
+AUTH_USER_MODEL ="users.User"
 
 USE_I18N = True
 
